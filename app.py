@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from agno_agents.collector_agent import CollectorAgent
 # Importar os agentes Agno aqui quando eles estiverem prontos
 # from agno_agents.analyzer_agent import AnalyzerAgent
 
@@ -14,6 +15,15 @@ segundo nossa análise, estão apresentando um bom desempenho no mercado.
 
 # --- Seção para exibir as ações em destaque ---
 st.header("Ações Atualmente em Destaque")
+
+st.subheader("Teste do Agente Coletor")
+collector = CollectorAgent()
+test_ticker_data = collector.get_historical_data("PETR4", period="1mo")
+if not test_ticker_data.empty:
+    st.write("Dados de PETR4.SA (último mês) via CollectorAgent:")
+    st.dataframe(test_ticker_data.tail())
+else:
+    st.write("Não foi possível obter dados de PETR4.SA.")
 
 # Por enquanto, vamos simular alguns dados.
 # No futuro, esta seção será preenchida pelos resultados do Agente de Análise.
